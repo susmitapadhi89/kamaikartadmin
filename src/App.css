@@ -1,0 +1,13 @@
+.web {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji" !important;
+}
+/* index.css or App.css */
+body {
+  font-family: "Roboto", Arial, sans-serif; /* Change to any font */
+}
+
+table tr td {
+  padding-top: 16px; /* increase vertical padding */
+  padding-bottom: 16px;
+}
