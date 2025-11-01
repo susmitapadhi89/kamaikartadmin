@@ -265,10 +265,10 @@ export const PaymentPage = () => {
 
       {/* Add/Edit Payment Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-5xl overflow-hidden flex flex-col">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 mt-10 sm:p-4">
+          <div className="bg-white rounded-2xl  w-full max-w-5xl overflow-hidden flex flex-col ">
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-4 flex justify-between items-center">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-5  py-4 flex justify-between items-center">
               <h2 className="text-lg sm:text-xl font-semibold text-white">
                 {editingPayment
                   ? "Edit Payment Method"
@@ -295,11 +295,11 @@ export const PaymentPage = () => {
             </div>
 
             {/* Form Container (scrolls only inside content) */}
-            <div className="overflow-y-auto max-h-[80vh] p-5 sm:p-8">
+            <div className="overflow-y-auto w-full max-h-[85vh] p-2 sm:p-8">
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* LEFT COLUMN */}
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     {/* Payment Name */}
                     <div>
                       <label

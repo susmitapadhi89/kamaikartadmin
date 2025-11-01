@@ -203,7 +203,7 @@ export const PromoCode = () => {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 ">
         <div className="p-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">

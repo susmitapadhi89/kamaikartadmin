@@ -177,7 +177,7 @@ export const SubCategory = () => {
       {/* Modal Overlay with Blur Effect */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl min-h-[70vh]  max-h-[80vh] ">
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-200">
               <h2 className="text-xl font-semibold text-gray-800">

@@ -24,7 +24,7 @@ export const Layout = () => {
     <div className="flex flex-col h-screen bg-gray-50">
       <Header toggleMobileSidebar={toggleMobileSidebar} />
 
-      <div className="flex flex-1 overflow-auto">
+      <div className="flex flex-1 overflow-hidden">
         {/* Desktop Sidebar */}
         <div className="hidden md:block">
           <Sidebar
@@ -62,3 +62,22 @@ export const Layout = () => {
     </div>
   );
 };
+
+//  <div className="flex flex-col h-screen bg-gray-50">
+//       {/* Header */}
+//       <Header toggleSidebar={toggleSidebar} />
+
+//       <div className="flex flex-1 overflow-hidden">
+//         {/* Sidebar */}
+//         <Sidebar
+//           isCollapsed={sidebarOpen}
+//           onToggleCollapse={toggleSidebar}
+//           isMobile={false}
+//         />
+
+//         {/* Main Content */}
+//         <main className="flex-1 overflow-y-auto md:p-6 bg-gray-50 relative z-10">
+//           <Outlet />
+//         </main>
+//       </div>
+//     </div>

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader } from "../Component/Common/Loader";
 import "font-awesome/css/font-awesome.min.css";
 import {
   CreateAttribute,
@@ -324,7 +323,7 @@ export const VariantAttributeManager = () => {
             </div>
             <div className="flex space-x-3">
               <button
-                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md transition"
                 onClick={editingId ? handleUpdateAttribute : handleAddAttribute}
               >
                 {editingId ? "Save Changes" : "Save Attribute"}
@@ -342,102 +341,6 @@ export const VariantAttributeManager = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Attributes List */}
-      {/* Attributes List */}
-      {/* <div className="bg-white rounded-xl shadow p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-800">
-            Attributes List
-          </h2>
-          <span className="text-sm text-gray-500">
-            {AttributeValue?.length || 0} attributes
-          </span>
-        </div>
-
-        {loading ? (
-          <div className="text-center py-8">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
-            <Loader />{" "}
-          </div>
-        ) : error ? (
-          <div className="text-center py-8 text-red-600">
-            <i className="fa fa-exclamation-circle text-2xl mb-2"></i>
-            <p>Error loading attributes: {error.message || "Unknown error"}</p>
-          </div>
-        ) : !AttributeValue?.data || AttributeValue.data.length === 0 ? (
-          <div className="text-center py-8">
-            <i className="fa fa-cubes text-3xl text-gray-400 mb-3"></i>
-            <h3 className="text-lg font-medium text-gray-600">
-              No attributes yet
-            </h3>
-            <p className="text-gray-500">
-              Create your first attribute to get started
-            </p>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 gap-4">
-            {AttributeValue.data.map((attribute) => (
-              <motion.div
-                key={attribute.id}
-                whileHover={{ scale: 1.02 }}
-                className="border border-gray-200 rounded-lg p-4 hover:shadow transition-all"
-              >
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h3 className="font-semibold text-gray-800">
-                      {attribute.name}
-                    </h3>
-                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                      {attribute.input_type}
-                    </span>
-                  </div>
-                  <div className="flex space-x-2">
-                    <button
-                      className="text-blue-500 hover:text-blue-700"
-                      onClick={() => {
-                        handleEditAttribute(attribute.id);
-                      }}
-                    >
-                      <i className="fa fa-edit fa-lg"></i>
-                    </button>
-                    <button
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() => {
-                        handleDeleteClick(attribute.id);
-                      }}
-                    >
-                      <i className="fa fa-trash fa-lg"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mt-3">
-                  <p className="text-sm text-gray-600 mb-1">
-                    Values ({attribute.values?.length || 0}):
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {attribute.values && attribute.values.length > 0 ? (
-                      attribute.values.map((value, index) => (
-                        <span
-                          key={index}
-                          className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm"
-                        >
-                          {value.value}
-                        </span>
-                      ))
-                    ) : (
-                      <span className="text-gray-400 text-sm">
-                        No values added
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div> */}
 
       {/* Attributes List */}
       <div className="bg-white rounded-xl shadow p-6">
