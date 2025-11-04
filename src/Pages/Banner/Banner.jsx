@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { ListProduct } from "../../Component/Tableview/Showdata";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,11 +19,9 @@ import { DeleteConfirmationModal } from "../../Component/Common/Delete";
 
 export const BannerSetup = () => {
   const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [bannerToDeleteId, setBannerToDeleteId] = useState(null);
-
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [editId, setEditId] = useState(null);
 
   const { bannerData, loading, error } = useSelector(
     (state) => state.BannerOperation
@@ -34,9 +38,24 @@ export const BannerSetup = () => {
   });
   const [previewImage, setPreviewImage] = useState(null);
 
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setNewBanner({ ...newBanner, image: file });
+  //     setPreviewImage(URL.createObjectURL(file));
+  //   }
+  // };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+      if (!validTypes.includes(file.type)) {
+        toast.error("Only JPG, JPEG, or PNG files are allowed!");
+        // Reset the input so user can select again
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        return;
+      }
+
       setNewBanner({ ...newBanner, image: file });
       setPreviewImage(URL.createObjectURL(file));
     }
@@ -69,36 +88,16 @@ export const BannerSetup = () => {
   const resetForm = () => {
     setNewBanner({ title: "", image: "", type: "" }); // ✅ reset type
     setPreviewImage(null);
-    setIsEditMode(false);
-    setEditId(null);
+    // ✅ Reset file input so same file can be selected again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
-
-  const handleEdit = useCallback(
-    async (id) => {
-      try {
-        const res = await dispatch(GetBannerById(id)).unwrap();
-
-        setNewBanner({
-          title: res.title,
-          image: res.image,
-          type: res.type || "", // ✅ populate type
-        });
-        setPreviewImage(res.image || null);
-
-        setIsEditMode(true);
-        setEditId(id);
-      } catch (err) {
-        toast.error("Failed to load banner for edit");
-        console.error(err);
-      }
-    },
-    [dispatch]
-  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newBanner.title.trim()) return toast.error("Title required");
-    if (!isEditMode && !newBanner.image) return toast.error("Image required");
+    if (!newBanner.image) return toast.error("Image required");
     if (!newBanner.type) return toast.error("Type required");
 
     const formData = new FormData();
@@ -111,23 +110,13 @@ export const BannerSetup = () => {
       formData.append("image", newBanner.image);
     }
 
-    if (isEditMode && editId) {
-      dispatch(UpdateBanner({ id: editId, data: formData }))
-        .unwrap()
-        .then((res) => {
-          toast.success(res.message || "Banner updated");
-          resetForm();
-        })
-        .catch((err) => toast.error(err.message || "Update failed"));
-    } else {
-      dispatch(CreateBanner(formData))
-        .unwrap()
-        .then((res) => {
-          toast.success(res.message || "Banner created");
-          resetForm();
-        })
-        .catch((err) => toast.error(err.message || "Create failed"));
-    }
+    dispatch(CreateBanner(formData))
+      .unwrap()
+      .then((res) => {
+        toast.success(res.message || "Banner created");
+        resetForm();
+      })
+      .catch((err) => toast.error(err.message || "Create failed"));
   };
 
   const BannerColumns = useMemo(
@@ -210,6 +199,7 @@ export const BannerSetup = () => {
           <input
             type="file"
             id="bannerImage"
+            ref={fileInputRef} // ✅ attach ref
             accept=".jpg,.jpeg,.png"
             onChange={handleImageChange}
             className="hidden"
@@ -228,7 +218,7 @@ export const BannerSetup = () => {
             type="submit"
             className="px-5 py-2.5 rounded-md text-white bg-blue-600 hover:bg-blue-700"
           >
-            {isEditMode ? "Update" : "Submit"}
+            {"Submit"}
           </button>
         </div>
       </form>

@@ -136,6 +136,7 @@ const Seller = () => {
             fetchData={fetchSellerData}
             onView={handleViewDetails}
             onDelete={handleDeleteClick}
+            onOrderView={handleViewDetails}
             totalPages={totalPages}
             totalItems={totalItems}
             loading={loading}

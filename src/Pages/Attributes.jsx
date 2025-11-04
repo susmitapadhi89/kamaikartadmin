@@ -263,14 +263,14 @@ export const VariantAttributeManager = () => {
               <div className="flex mb-2">
                 <input
                   type="text"
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-1 px-4 py-2   border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Add a value"
                   value={newValue}
                   onChange={(e) => setNewValue(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleAddValue()}
                 />
                 <button
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 transition"
+                  className="bg-indigo-600 text-white   px-4 py-2 rounded-r-md hover:bg-indigo-700 transition"
                   onClick={handleAddValue}
                 >
                   Add

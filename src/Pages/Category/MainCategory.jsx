@@ -36,11 +36,34 @@ export const MainCategory = () => {
   });
   const [previewImage, setPreviewImage] = useState(null);
 
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const previewUrl = URL.createObjectURL(file);
+
+  //     setNewCategory({ ...newCategory, image: file });
+  //     setPreviewImage(previewUrl);
+  //   }
+  // };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const previewUrl = URL.createObjectURL(file);
+      const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const maxSize = 2 * 1024 * 1024; // 2MB
 
+      if (!validTypes.includes(file.type)) {
+        toast.error("Only JPG, JPEG, or PNG files are allowed!");
+        e.target.value = ""; // reset input
+        return;
+      }
+
+      if (file.size > maxSize) {
+        toast.error("Image size must be under 2MB!");
+        e.target.value = "";
+        return;
+      }
+
+      const previewUrl = URL.createObjectURL(file);
       setNewCategory({ ...newCategory, image: file });
       setPreviewImage(previewUrl);
     }

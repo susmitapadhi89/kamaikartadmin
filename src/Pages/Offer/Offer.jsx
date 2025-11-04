@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { ListProduct } from "../../Component/Tableview/Showdata";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,12 +23,10 @@ import {
 } from "../../Redux/Features/OfferServicesSlice";
 
 export const OfferSetup = () => {
+  const fileInputRef = useRef(null);
   const dispatch = useDispatch();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [bannerToDeleteId, setBannerToDeleteId] = useState(null);
-
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [editId, setEditId] = useState(null);
 
   const { OfferbannerData, loading, error } = useSelector(
     (state) => state.OfferOperation
@@ -40,9 +44,25 @@ export const OfferSetup = () => {
   });
   const [previewImage, setPreviewImage] = useState(null);
 
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setNewOffer({ ...newOffer, image: file });
+  //     setPreviewImage(URL.createObjectURL(file));
+  //   }
+  // };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+      if (!validTypes.includes(file.type)) {
+        toast.error("Only JPG, JPEG, or PNG files are allowed!");
+        // Reset the input so user can select again
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        return;
+      }
+
       setNewOffer({ ...newOffer, image: file });
       setPreviewImage(URL.createObjectURL(file));
     }
@@ -75,14 +95,16 @@ export const OfferSetup = () => {
   const resetForm = () => {
     setNewOffer({ title: "", image: "", type: "", link: "" }); // ✅ reset type
     setPreviewImage(null);
-    setIsEditMode(false);
-    setEditId(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newOffer.title.trim()) return toast.error("Title required");
-    if (!isEditMode && !newOffer.image) return toast.error("Image required");
+    if (!newOffer.image) return toast.error("Image required");
 
     const formData = new FormData();
     formData.append("title", newOffer.title);
@@ -94,23 +116,13 @@ export const OfferSetup = () => {
       formData.append("image", newOffer.image);
     }
 
-    if (isEditMode && editId) {
-      dispatch(UpdateBanner({ id: editId, data: formData }))
-        .unwrap()
-        .then((res) => {
-          toast.success(res.message || "Banner updated");
-          resetForm();
-        })
-        .catch((err) => toast.error(err.message || "Update failed"));
-    } else {
-      dispatch(CreateOfferBanner(formData))
-        .unwrap()
-        .then((res) => {
-          toast.success(res.message || "Banner created");
-          resetForm();
-        })
-        .catch((err) => toast.error(err.message || "Create failed"));
-    }
+    dispatch(CreateOfferBanner(formData))
+      .unwrap()
+      .then((res) => {
+        toast.success(res.message || "Banner created");
+        resetForm();
+      })
+      .catch((err) => toast.error(err.message || "Create failed"));
   };
 
   const BannerColumns = useMemo(
@@ -189,6 +201,7 @@ export const OfferSetup = () => {
           <input
             type="file"
             id="bannerImage"
+            ref={fileInputRef} // ✅
             accept=".jpg,.jpeg,.png"
             onChange={handleImageChange}
             className="hidden"
@@ -207,7 +220,7 @@ export const OfferSetup = () => {
             type="submit"
             className="px-5 py-2.5 rounded-md text-white bg-blue-600 hover:bg-blue-700"
           >
-            {isEditMode ? "Update" : "Submit"}
+            {"Submit"}
           </button>
         </div>
       </form>

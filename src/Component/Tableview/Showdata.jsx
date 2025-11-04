@@ -9,6 +9,7 @@ export const ListProduct = ({
   onEdit,
   onDelete,
   onView,
+  onOrderView,
   loading, // ✅ Redux thi
   // totalPages,
   totalItems,
@@ -197,7 +198,7 @@ export const ListProduct = ({
                   {col.label}
                 </th>
               ))}
-              {(onEdit || onDelete || onView) && (
+              {(onEdit || onDelete || onView || onOrderView) && (
                 <th className="px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                   Actions
                 </th>
@@ -263,7 +264,7 @@ export const ListProduct = ({
                     </td>
                   ))}
 
-                  {(onEdit || onDelete || onView) && (
+                  {(onEdit || onDelete || onView || onOrderView) && (
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-3">
                         {onView && (
@@ -346,6 +347,18 @@ export const ListProduct = ({
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                               />
                             </svg>
+                          </button>
+                        )}
+                        {onOrderView && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onView(row.id);
+                            }}
+                            className="text-blue-600 hover:text-blue-800 transition-colors"
+                            title="View"
+                          >
+                            ViewOrder
                           </button>
                         )}
                       </div>

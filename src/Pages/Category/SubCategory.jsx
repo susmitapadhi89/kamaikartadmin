@@ -55,11 +55,34 @@ export const SubCategory = () => {
     []
   );
 
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const previewUrl = URL.createObjectURL(file);
+
+  //     setNewSubCategory({ ...newSubCategory, image: file });
+  //     setPreviewImage(previewUrl);
+  //   }
+  // };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const previewUrl = URL.createObjectURL(file);
+      const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const maxSize = 2 * 1024 * 1024; // 2MB limit
 
+      if (!validTypes.includes(file.type)) {
+        toast.error("Only JPG, JPEG, or PNG files are allowed!");
+        e.target.value = "";
+        return;
+      }
+
+      if (file.size > maxSize) {
+        toast.error("Image size must be under 2MB!");
+        e.target.value = "";
+        return;
+      }
+
+      const previewUrl = URL.createObjectURL(file);
       setNewSubCategory({ ...newSubCategory, image: file });
       setPreviewImage(previewUrl);
     }
