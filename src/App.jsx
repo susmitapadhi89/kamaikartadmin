@@ -27,6 +27,7 @@ import { OfferSetup } from "./Pages/Offer/Offer";
 import { PaymentPage } from "./Pages/Payment/Payment";
 import { PromoCode } from "./Pages/Promocode";
 import { CancleOrderReason } from "./Pages/CancleOrderReason/CancleOrderReason";
+import { SortOptionSetup } from "./Pages/SortOption/Sortoption";
 
 function App() {
   const router = createBrowserRouter([
@@ -145,6 +146,11 @@ function App() {
           path: "CancleOrderReason",
           element: <Layout />,
           children: [{ path: "", element: <CancleOrderReason /> }],
+        },
+        {
+          path: "SortOption",
+          element: <Layout />,
+          children: [{ path: "", element: <SortOptionSetup /> }],
         },
       ],
     },

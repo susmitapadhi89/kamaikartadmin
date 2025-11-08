@@ -13,6 +13,7 @@ import { OfferServices } from "../Features/OfferServicesSlice";
 import { PaymentServices } from "../Features/PaymentServicesSlice";
 import { PromoCodeServices } from "../Features/PromoServicesSlice";
 import { CancelOrderReasonServices } from "../Features/CancleOrderReasonServicesSlice";
+import { sortOptionServices } from "../Features/SortOptionServicesSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -30,5 +31,6 @@ export const Store = configureStore({
     PaymentOperation: PaymentServices.reducer,
     PromoCodeOperation: PromoCodeServices.reducer,
     CancelOrderReasonOpration: CancelOrderReasonServices.reducer,
+    sortOptionOperation: sortOptionServices.reducer,
   },
 });

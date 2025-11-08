@@ -114,6 +114,11 @@ export const Sidebar = ({
       icon: "👤",
       path: "/admin/CancleOrderReason",
     },
+    {
+      name: "SortOption List",
+      icon: "👤",
+      path: "/admin/SortOption",
+    },
   ];
 
   const Setting = [
