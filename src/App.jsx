@@ -28,6 +28,7 @@ import { PaymentPage } from "./Pages/Payment/Payment";
 import { PromoCode } from "./Pages/Promocode";
 import { CancleOrderReason } from "./Pages/CancleOrderReason/CancleOrderReason";
 import { SortOptionSetup } from "./Pages/SortOption/Sortoption";
+import { SellerDetailsPage } from "./Pages/team/Seller/SellerDetailsPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -83,6 +84,7 @@ function App() {
           children: [
             { path: "seller-list", element: <Seller /> },
             { path: "user-list", element: <User /> },
+            { path: ":id/details", element: <SellerDetailsPage /> }
           ],
         },
         {

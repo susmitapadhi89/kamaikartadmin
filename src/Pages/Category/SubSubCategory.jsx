@@ -123,7 +123,7 @@ export const SubSubCategory = () => {
           Handlesubcategoryfetch(res.main.id, res.parent?.id || "");
         }
       } catch (err) {
-        toast.error("Failed to load category for edit");
+        toast.error("Failed to load category for edit", err);
       }
     },
     [Handlesubcategoryfetch, dispatch]
